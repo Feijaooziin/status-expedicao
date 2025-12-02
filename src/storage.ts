@@ -25,5 +25,15 @@ export const savePhone = async (phone: string) => {
 };
 
 export const getPhone = async () => {
-  return (await AsyncStorage.getItem(KEY_PHONE)) || "559999999999";
+  return (await AsyncStorage.getItem(KEY_PHONE)) || "5541912345678";
+};
+
+export const deleteHistoryItem = async (index: number) => {
+  const old = await getHistory();
+  const updated = old.filter((_, i) => i !== index);
+  await AsyncStorage.setItem(KEY_HISTORY, JSON.stringify(updated));
+};
+
+export const clearHistory = async () => {
+  await AsyncStorage.setItem(KEY_HISTORY, JSON.stringify([]));
 };
