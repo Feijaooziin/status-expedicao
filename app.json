@@ -4,31 +4,42 @@
     "slug": "status-expedicao",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/Icon.png",
+
+    // Ícone do app
+    "icon": "./assets/icon.png",
+
     "scheme": "statusexpedicao",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#FFFFFF",
-        "foregroundImage": "./src/assets/Icon.png"
-      },
+      "package": "com.feijaoozin.statusexpedicao",
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+
+      // Adaptive Icon
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
+
     "web": {
       "output": "static",
-      "favicon": "./src/assets/Icon.png"
+      "favicon": "./assets/icon.png"
     },
+
+    // Plugins (Splash configurado corretamente)
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/splash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -38,10 +49,12 @@
         }
       ]
     ],
+
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
+
     "extra": {
       "router": {},
       "eas": {
