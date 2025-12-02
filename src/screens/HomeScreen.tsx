@@ -6,10 +6,12 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import DatePicker from "../components/DatePicker";
 import TimePicker from "../components/TimePicker";
 import { getPhone, saveHistory } from "../storage";
 
 export default function HomeScreen() {
+  const [data, setData] = useState<Date | null>(null);
   const [separacao, setSeparacao] = useState<Date | null>(null);
   const [conferencia, setConferencia] = useState<Date | null>(null);
   const [carregamento, setCarregamento] = useState<Date | null>(null);
@@ -21,16 +23,20 @@ export default function HomeScreen() {
     getPhone().then(setNumeroDestino);
   }, []);
 
-  const format = (d: Date | null) =>
+  const formatTime = (d: Date | null) =>
     d ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
 
+  const formatDate = (d: Date | null) =>
+    d ? d.toLocaleDateString("pt-BR") : "";
+
   const gerarMensagem = () => `
-Status expedição JBS
-Final da separação: ${format(separacao)}
-Final da Conferência: ${format(conferencia)}
-Final do Carregamento: ${format(carregamento)}
-Peso Bruto: ${pesoBruto}
-Volumes: ${volumes}
+  *_Status expedição JBS_*
+  *Data da Operação:* ${formatDate(data)}
+  *Final da separação:* ${formatTime(separacao)}
+  *Final da Conferência:* ${formatTime(conferencia)}
+  *Final do Carregamento:* ${formatTime(carregamento)}
+  *Peso Bruto:* ${pesoBruto}
+  *Volumes:* ${volumes}
 `;
 
   const enviar = async () => {
@@ -46,6 +52,8 @@ Volumes: ${volumes}
 
   return (
     <ScrollView style={styles.container}>
+      <DatePicker label="Data da Operação" value={data} onChange={setData} />
+
       <TimePicker
         label="Final da Separação"
         value={separacao}
