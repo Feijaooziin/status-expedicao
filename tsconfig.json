@@ -3,15 +3,20 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "app/index.js",
+    "src/storage.ts",
+    "src/navigation.tsx",
+    "src/screens/SettingsScreen.tsx",
+    "src/screens/HomeScreen.tsx",
+    "src/screens/HistoryScreen.tsx",
+    "src/components/TimePicker.js"
   ]
 }
