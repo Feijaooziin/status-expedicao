@@ -2,7 +2,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   label: string;
@@ -20,19 +20,26 @@ export default function TimePicker({ label, value, onChange }: Props) {
 
   return (
     <View style={{ marginBottom: 15 }}>
-      <Text>{label}</Text>
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: 700,
+          textTransform: "uppercase",
+          color: "black",
+          marginBottom: 6,
+        }}
+      >
+        {label}
+      </Text>
 
-      <Button
-        title={
-          value
-            ? value.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            : "Selecionar horário"
-        }
-        onPress={() => setShow(true)}
-      />
+      <TouchableOpacity style={styles.button} onPress={() => setShow(true)}>
+        {value
+          ? value.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "Selecionar horário"}
+      </TouchableOpacity>
 
       {show && (
         <DateTimePicker
@@ -44,3 +51,17 @@ export default function TimePicker({ label, value, onChange }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#2c3367",
+    padding: 8,
+    alignItems: "center",
+    color: "white",
+    fontSize: 20,
+    fontWeight: 700,
+    borderRadius: 8,
+    marginBottom: 16,
+    textTransform: "uppercase",
+  },
+});

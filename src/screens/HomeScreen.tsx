@@ -1,6 +1,11 @@
 import * as Linking from "expo-linking";
 import { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, TextInput } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import TimePicker from "../components/TimePicker";
 import { getPhone, saveHistory } from "../storage";
 
@@ -71,17 +76,37 @@ Volumes: ${volumes}
         onChangeText={setVolumes}
       />
 
-      <Button title="Enviar Mensagem" onPress={enviar} />
+      <TouchableOpacity style={styles.button} onPress={enviar}>
+        ENVIAR
+      </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
+  container: {
+    backgroundColor: "white",
+    padding: 20,
+  },
+
+  button: {
+    backgroundColor: "#2c3367",
+    padding: 16,
+    alignItems: "center",
+    color: "white",
+    fontSize: 28,
+    fontWeight: 700,
+    borderRadius: 8,
+    textTransform: "uppercase",
+  },
+
   input: {
     borderWidth: 1,
     padding: 10,
     borderRadius: 8,
     marginBottom: 15,
+    fontSize: 20,
+    fontWeight: 600,
+    color: "black",
   },
 });
