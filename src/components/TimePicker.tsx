@@ -33,12 +33,14 @@ export default function TimePicker({ label, value, onChange }: Props) {
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={() => setShow(true)}>
-        {value
-          ? value.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          : "Selecionar horário"}
+        <Text style={styles.buttonText}>
+          {value
+            ? value.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "Selecionar horário"}
+        </Text>
       </TouchableOpacity>
 
       {show && (
@@ -57,11 +59,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#2c3367",
     padding: 8,
     alignItems: "center",
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+
+  buttonText: {
     color: "white",
     fontSize: 20,
     fontWeight: 700,
-    borderRadius: 8,
-    marginBottom: 16,
     textTransform: "uppercase",
   },
 });

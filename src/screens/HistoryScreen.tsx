@@ -40,6 +40,24 @@ export default function HistoryScreen() {
     ]);
   };
 
+  const handleClear = (index: number) => {
+    Alert.alert(
+      "Limpar tudo",
+      "Tem certeza que deseja excluir todos os itens?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Limpar",
+          style: "destructive",
+          onPress: async () => {
+            await clearHistory();
+            loadHistory();
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       {history.map((item, index) => (
@@ -61,14 +79,7 @@ export default function HistoryScreen() {
         </View>
       ))}
 
-      <Button
-        title="Limpar tudo"
-        color="red"
-        onPress={async () => {
-          await clearHistory();
-          loadHistory();
-        }}
-      />
+      <Button title="Limpar tudo" color="red" onPress={() => handleClear} />
     </ScrollView>
   );
 }

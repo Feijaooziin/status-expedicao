@@ -3,23 +3,45 @@ import { Button, StyleSheet, TextInput, View } from "react-native";
 import { getPhone, savePhone } from "../storage";
 
 export default function SettingsScreen() {
-  const [numero, setNumero] = useState("");
+  const [numeroDestino, setNumeroDestino] = useState("");
+  const [numeroLimpo, setNumeroLimpo] = useState("");
+
+  function formatPhone(value: string) {
+    const digits = value.replace(/\D/g, "");
+
+    if (digits.length <= 2) return `(${digits})`;
+    if (digits.length <= 4) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 9)
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(
+      7,
+      11
+    )}`;
+  }
+
+  const onChangePhone = (text: string) => {
+    const cleaned = text.replace(/\D/g, "");
+    setNumeroLimpo(cleaned);
+    setNumeroDestino(formatPhone(text));
+  };
 
   useEffect(() => {
-    getPhone().then(setNumero);
+    getPhone().then(setNumeroDestino);
   }, []);
 
   const salvar = async () => {
-    await savePhone(numero);
+    await savePhone(numeroLimpo);
   };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
+        keyboardType="numeric"
         placeholder="Número destino"
-        value={numero}
-        onChangeText={setNumero}
+        value={numeroDestino}
+        onChangeText={onChangePhone}
       />
 
       <Button title="Salvar" onPress={salvar} />

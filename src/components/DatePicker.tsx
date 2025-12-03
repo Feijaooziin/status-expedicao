@@ -33,7 +33,7 @@ export default function DatePicker({ label, value, onChange }: Props) {
         }}
       >
         <Text style={{ fontSize: 18, fontWeight: 600, color: "black" }}>
-          {value ? value.toLocaleDateString("pt-BR") : "Selecionar data"}
+          {value ? value.toLocaleDateString("pt-BR") : "SELECIONAR DATA"}
         </Text>
       </Pressable>
 
