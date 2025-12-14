@@ -1,3 +1,4 @@
+import Feather from "@expo/vector-icons/Ionicons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -33,6 +34,7 @@ export default function TimePicker({ label, value, onChange }: Props) {
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={() => setShow(true)}>
+        <Feather name="time-outline" size={20} color={"white"} />
         <Text style={styles.buttonText}>
           {value
             ? value.toLocaleTimeString([], {
@@ -61,6 +63,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     marginBottom: 16,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
   },
 
   buttonText: {

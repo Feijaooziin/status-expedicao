@@ -1,6 +1,9 @@
+import Feather from "@expo/vector-icons/Ionicons";
+import * as Clipboard from "expo-clipboard";
 import * as Linking from "expo-linking";
 import { useEffect, useState } from "react";
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +13,7 @@ import {
 import DatePicker from "../components/DatePicker";
 import TimePicker from "../components/TimePicker";
 import { getPhone, saveHistory } from "../storage";
+Feather;
 
 export default function HomeScreen() {
   const [data, setData] = useState<Date | null>(null);
@@ -41,13 +45,13 @@ export default function HomeScreen() {
 
   const gerarMensagem = () =>
     `*_Status expedição JBS_*
-  *Data da Operação:* ${formatDate(data)}
-  *Quantidade de carros:* ${carros}
-  *Peso Bruto:* ${pesoBruto}
-  *Volumes:* ${volumes}
-  *Final da Separação:* ${formatTime(separacao)}
-  *Final da Conferência:* ${formatTime(conferencia)}
-  *Final do Carregamento:* ${formatTime(carregamento)}`;
+*Data da Operação:* ${formatDate(data)}
+*Quantidade de carros:* ${carros}
+*Peso Bruto:* ${pesoBruto}
+*Volumes:* ${volumes}
+*Final da Separação:* ${formatTime(separacao)}
+*Final da Conferência:* ${formatTime(conferencia)}
+*Final do Carregamento:* ${formatTime(carregamento)}`;
 
   const enviar = async () => {
     const msg = gerarMensagem();
@@ -58,6 +62,36 @@ export default function HomeScreen() {
 
     const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
     Linking.openURL(url);
+  };
+
+  const copiar = async () => {
+    const msg = gerarMensagem();
+
+    Clipboard.setStringAsync(msg);
+  };
+
+  const reset = async () => {
+    Alert.alert(
+      "Limpar capos",
+      "Tem certeza que deseja limpar todos os campos?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Limpar",
+          style: "destructive",
+          onPress: async () => {
+            setData(null);
+            setCarros("");
+            setSeparacao(null);
+            setConferencia(null);
+            setCarregamento(null);
+            setPesoBruto("");
+            setVolumes("");
+            setNumeroDestino("");
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -107,8 +141,28 @@ export default function HomeScreen() {
         onChange={setCarregamento}
       />
 
-      <TouchableOpacity style={styles.button} onPress={enviar}>
+      <TouchableOpacity
+        style={[styles.button, { marginTop: 16 }]}
+        onPress={copiar}
+      >
+        <Feather name="copy-outline" size={28} color={"white"} />
+        <Text style={styles.buttonText}>COPIAR</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: "green" }]}
+        onPress={enviar}
+      >
+        <Feather name="logo-whatsapp" size={28} color={"white"} />
         <Text style={styles.buttonText}>ENVIAR</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, { marginBottom: 64, backgroundColor: "red" }]}
+        onPress={reset}
+      >
+        <Feather name="close" size={28} color={"white"} />
+        <Text style={styles.buttonText}>LIMPAR CAMPOS</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -117,7 +171,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
 
   button: {
@@ -125,7 +180,11 @@ const styles = StyleSheet.create({
     padding: 12,
     alignItems: "center",
     borderRadius: 8,
-    marginTop: 36,
+    marginTop: 24,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
   },
 
   buttonText: {
