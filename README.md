@@ -35,6 +35,12 @@ O objetivo deste projeto é centralizar mensagens importantes da operação em u
 
 ---
 
+## 🎥 Demonstração em vídeo
+
+[▶️ Assistir ao vídeo](https://www.youtube.com/shorts/jTBPTxg1H48)
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
 - React Native
