@@ -37,7 +37,7 @@ O objetivo deste projeto é centralizar mensagens importantes da operação em u
 
 ## 🎥 Demonstração em vídeo
 
-<a href="https://www.youtube.com/shorts/jTBPTxg1H48" target="_blank">
+<a href="https://www.youtube.com/shorts/jTBPTxg1H48" target="_blank" rel="noopener noreferrer">
   ▶️ Assistir ao vídeo
 </a>
 
