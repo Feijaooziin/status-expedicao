@@ -40,7 +40,7 @@ export default function HistoryScreen() {
     ]);
   };
 
-  const handleClear = (index: number) => {
+  const handleClear = () => {
     Alert.alert(
       "Limpar tudo",
       "Tem certeza que deseja excluir todos os itens?",
@@ -54,7 +54,7 @@ export default function HistoryScreen() {
             loadHistory();
           },
         },
-      ]
+      ],
     );
   };
 
@@ -79,7 +79,7 @@ export default function HistoryScreen() {
         </View>
       ))}
 
-      <Button title="Limpar tudo" color="red" onPress={() => handleClear} />
+      <Button title="Limpar tudo" color="red" onPress={handleClear} />
     </ScrollView>
   );
 }

@@ -90,7 +90,7 @@ export default function HomeScreen() {
             setNumeroDestino("");
           },
         },
-      ]
+      ],
     );
   };
 
