@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import Botao from "../components/Botao";
 import { getPhone, savePhone } from "../storage";
 
 export default function SettingsScreen() {
@@ -16,7 +17,7 @@ export default function SettingsScreen() {
 
     return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(
       7,
-      11
+      11,
     )}`;
   }
 
@@ -31,30 +32,56 @@ export default function SettingsScreen() {
   }, []);
 
   const salvar = async () => {
+    if (numeroLimpo.length < 11) {
+      Alert.alert("Erro", "Número inválido. Insira um número válido.");
+      return;
+    }
+    Alert.alert("Sucesso", "Número " + numeroDestino + " salvo com sucesso!");
     await savePhone(numeroLimpo);
+  };
+
+  const handleClear = () => {
+    Alert.alert("Limpar campo", "Tem certeza que deseja limpar o campo?", [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Limpar",
+        style: "destructive",
+        onPress: async () => {
+          setNumeroDestino("");
+        },
+      },
+    ]);
   };
 
   return (
     <View style={styles.container}>
+      <Text>Digite o Número para enviar as mensagens:</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
         placeholder="Número destino"
         value={numeroDestino}
         onChangeText={onChangePhone}
+        maxLength={15}
       />
 
-      <Button title="Salvar" onPress={salvar} />
+      <Botao text="Salvar" onPress={salvar} />
+      <Botao text="Limpar Campos" color={"#FF0000"} onPress={handleClear} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
+  container: {
+    paddingTop: 48,
+    padding: 24,
+    gap: 24,
+  },
+
   input: {
     borderWidth: 1,
     padding: 10,
     borderRadius: 8,
-    marginBottom: 20,
+    marginBottom: 16,
   },
 });

@@ -25,7 +25,7 @@ export const savePhone = async (phone: string) => {
 };
 
 export const getPhone = async () => {
-  return (await AsyncStorage.getItem(KEY_PHONE)) || "41987514528";
+  return (await AsyncStorage.getItem(KEY_PHONE)) || "(41) 98751-4528";
 };
 
 export const deleteHistoryItem = async (index: number) => {
